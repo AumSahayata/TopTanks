@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
+    [SerializeField] private GameInput gameInput;
     private void Update() {
-        if (Input.GetKey(KeyCode.W)) {
-            transform.position += Vector3.up * 2f * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.S)) {
-            transform.position += Vector3.down * 2f * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.A)) {
-            transform.position += Vector3.left * 2f * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.D)) {
-            transform.position += Vector3.right * 2f * Time.deltaTime;
-        }
+        HandleMovement();
     }
 
+    private void HandleMovement() {
+        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+
+        if(inputVector != Vector2.zero ) {
+            transform.position += new Vector3(inputVector.x,inputVector.y,0) * 5f * Time.deltaTime;
+
+            Quaternion toRotate = Quaternion.LookRotation(Vector3.forward, inputVector);
+            transform.rotation = Quaternion.Slerp(transform.rotation, toRotate, 8f * Time.deltaTime);
+        }
+    }
 }
