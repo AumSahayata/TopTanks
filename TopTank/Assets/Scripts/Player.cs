@@ -5,8 +5,11 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     [SerializeField] private GameInput gameInput;
+    [SerializeField] private GameObject barrel;
+
     private void Update() {
         HandleMovement();
+        HandleAim();
     }
 
     private void HandleMovement() {
@@ -17,6 +20,15 @@ public class Player : MonoBehaviour {
 
             Quaternion toRotate = Quaternion.LookRotation(Vector3.forward, inputVector);
             transform.rotation = Quaternion.Slerp(transform.rotation, toRotate, 8f * Time.deltaTime);
+        }
+    }
+
+    private void HandleAim() {
+        Vector2 aimVector = gameInput.GetAimVectorNormalized();
+
+        if(aimVector != Vector2.zero) {
+            Quaternion toRotate = Quaternion.LookRotation(Vector3.forward, aimVector);
+            barrel.transform.rotation = Quaternion.Slerp(barrel.transform.rotation, toRotate, 10f * Time.deltaTime);
         }
     }
 }

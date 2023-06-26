@@ -17,4 +17,10 @@ public class GameInput : MonoBehaviour {
         inputVector.Normalize();
         return inputVector;
     }
+
+    public Vector2 GetAimVectorNormalized() {
+        Vector2 aimVector = playerControl.Player.Aim.ReadValue<Vector2>();
+        aimVector.Normalize();
+        return aimVector;
+    }
 }
