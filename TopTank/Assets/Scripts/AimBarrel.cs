@@ -4,12 +4,8 @@ using UnityEngine;
 
 public class AimBarrel : MonoBehaviour {
 
-    private GameInput gameInput;
+    [SerializeField] private GameInput gameInput;
     public Vector2 pointerPos { get; set; }
-
-    private void Awake () {
-        gameInput = GetComponent<GameInput>();
-    }
 
     private void Update() {
         pointerPos = gameInput.GetPointerInput();
