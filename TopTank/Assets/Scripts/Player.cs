@@ -34,7 +34,10 @@ public class Player : MonoBehaviour {
     }
 
     private void Shoot() {
+        if(bulletSpawnPoint == null) {
+            return;
+        }
+
         Instantiate(bullet, bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.rotation);
-        print("Bullet spawned");
     }
 }

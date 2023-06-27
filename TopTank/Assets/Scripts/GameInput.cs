@@ -6,7 +6,6 @@ using UnityEngine;
 public class GameInput : MonoBehaviour {
 
     public event EventHandler OnShoot;
-    public event EventHandler OnBarrelAction;
 
     private Controls playerControl;
 
@@ -14,13 +13,7 @@ public class GameInput : MonoBehaviour {
         playerControl = new Controls();
         playerControl.Player.Enable();
         playerControl.Player.Shoot.performed += Shoot_performed;
-        playerControl.Player.BarrelAction.performed += BarrelAction_performed;
     }
-
-    private void BarrelAction_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
-        OnBarrelAction?.Invoke(this, EventArgs.Empty);
-    }
-
     public Vector2 GetMovementVectorNormalized() {
         Vector2 inputVector = playerControl.Player.Movement.ReadValue<Vector2>();
         if(inputVector == null ) {
