@@ -193,6 +193,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2503312852901921266, guid: 9cd48faa3ad87d948ab0ad9d5c753ec7, type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 3332455935696886775, guid: 781510c431fec3a4db365baf00048d90, type: 3}
+    - target: {fileID: 2503312852901921266, guid: 9cd48faa3ad87d948ab0ad9d5c753ec7, type: 3}
       propertyPath: gameInput
       value: 
       objectReference: {fileID: 1165734997}
@@ -240,6 +244,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4918099984212075923, guid: 9cd48faa3ad87d948ab0ad9d5c753ec7, type: 3}
+      propertyPath: gameInput
+      value: 
+      objectReference: {fileID: 1165734997}
     - target: {fileID: 5880580124165026239, guid: 9cd48faa3ad87d948ab0ad9d5c753ec7, type: 3}
       propertyPath: m_Name
       value: Player
