@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameInput: {fileID: 0}
-  bulletSpawnPoint: {fileID: 0}
+  bulletSpawnPoint: {fileID: 2910058687332863016}
   bullet: {fileID: 0}
 --- !u!1 &7111488633289653656
 GameObject:
@@ -283,6 +283,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803a9e064b061c446bbeb9f50cc501d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameInput: {fileID: 0}
+  tankBody: {fileID: 0}
 --- !u!1 &8910735369642763079
 GameObject:
   m_ObjectHideFlags: 0
