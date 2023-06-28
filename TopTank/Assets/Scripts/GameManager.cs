@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -9,10 +10,14 @@ public class GameManager : MonoBehaviour {
 
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject spawner;
+    [SerializeField] private Text remainingKeyCountTXT;
 
     public int keyTarget;
     private int keyCollected;
 
+    private void Start() {
+        remainingKeyCountTXT.text = (keyTarget - keyCollected).ToString();
+    }
 
     private void LateUpdate() {
         if(GameObject.FindWithTag("Player") == null || keyCollected == keyTarget) {
@@ -28,7 +33,7 @@ public class GameManager : MonoBehaviour {
 
     public void PickedUpKey() {
         keyCollected++;
-        print(keyCollected);
+        remainingKeyCountTXT.text = (keyTarget - keyCollected).ToString();
     }
 
 }

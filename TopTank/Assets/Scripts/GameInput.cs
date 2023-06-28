@@ -8,13 +8,30 @@ public class GameInput : MonoBehaviour {
     public event EventHandler OnShoot;
 
     private Controls playerControl;
+    private bool pause = false;
 
     private void Awake() {
         playerControl = new Controls();
         playerControl.Player.Enable();
         playerControl.Player.Shoot.performed += Shoot_performed;
+        playerControl.Player.Pause.performed += Pause_performed;
 
     }
+
+    private void Pause_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
+        pause = !pause;
+
+        if (pause) {
+            Time.timeScale = 0;
+            playerControl.Player.Shoot.performed -= Shoot_performed;
+        } else {
+            Time.timeScale = 1;
+            playerControl.Player.Shoot.performed += Shoot_performed;
+        }
+
+        print("pause " + Time.timeScale);
+    }
+
     private void Start() {
         GameObject.FindAnyObjectByType<GameManager>().ToStopInput += GameInput_ToStopInput;
     }
