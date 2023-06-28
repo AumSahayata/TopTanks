@@ -1,29 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
-public class ChasingTankScript : MonoBehaviour {
+public class ShooterTankScript : MonoBehaviour {
 
     [SerializeField] private float moveSpeed;
     [SerializeField] private GameObject tankDestroyEffect;
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private Transform bulletSpawnPoint;
 
     private Transform target;
     private Vector2 moveDir;
 
-    private void Start () {
+    private void Start() {
         try {
             target = GameObject.FindWithTag("Player").transform;
-            SetMoveSpeed();
+            StartCoroutine(Shoot());
         } catch {
             print("player not found");
         }
     }
 
-    private void Update () {
+    private void Update() {
         if (target) {
             Vector3 dir = (target.position - transform.position).normalized;
-            float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             rb.rotation = angle;
             moveDir = dir;
         }
@@ -40,13 +43,19 @@ public class ChasingTankScript : MonoBehaviour {
             Destroy(gameObject);
             Destroy(collision.gameObject);
             Instantiate(tankDestroyEffect, transform.position, transform.rotation);
-        }
-        else if (collision.gameObject.CompareTag("Bullet")) {
+        } else if (collision.gameObject.CompareTag("Bullet")) {
             Destroy(gameObject);
         }
     }
 
-    private void SetMoveSpeed() {
-        moveSpeed = Random.Range(3, 6);
+    IEnumerator Shoot() {
+        while (true)
+        {
+            yield return new WaitForSeconds(2);
+
+            GameObject spawnedBullet = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+
+            spawnedBullet.GetComponent<EnemyBulletScript>().Setup(moveDir);
+        }
     }
 }

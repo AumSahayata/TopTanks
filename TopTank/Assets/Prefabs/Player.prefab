@@ -208,8 +208,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDrag: 1
+  m_AngularDrag: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameInput: {fileID: 0}
-  bulletSpawnPoint: {fileID: 2910058687332863016}
+  bulletSpawnPoint: {fileID: 4672619037412000010}
   bullet: {fileID: 0}
 --- !u!1 &7111488633289653656
 GameObject:
@@ -284,7 +284,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameInput: {fileID: 0}
-  tankBody: {fileID: 0}
 --- !u!1 &8910735369642763079
 GameObject:
   m_ObjectHideFlags: 0

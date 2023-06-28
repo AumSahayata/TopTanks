@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,14 +6,14 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     [SerializeField] private GameInput gameInput;
-    [SerializeField] private GameObject bulletSpawnPoint;
+    [SerializeField] private Transform bulletSpawnPoint;
     [SerializeField] private GameObject bullet;
 
 
     private void Start () {
         gameInput.OnShoot += GameInput_OnShoot;
-
     }
+
 
     private void GameInput_OnShoot(object sender, System.EventArgs e) {
         Shoot();
@@ -38,6 +39,15 @@ public class Player : MonoBehaviour {
             return;
         }
 
-        Instantiate(bullet, bulletSpawnPoint.transform.position, bulletSpawnPoint.transform.rotation);
+        Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.CompareTag("EnemyBullet")) {
+            Destroy(gameObject);
+            Destroy(collision.gameObject);
+        }
+    }
+
+
 }
