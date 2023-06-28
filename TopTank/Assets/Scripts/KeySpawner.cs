@@ -6,10 +6,13 @@ public class KeySpawner : MonoBehaviour {
 
     [SerializeField] private GameObject key;
     [SerializeField] private Transform[] spawnPointsArray;
-    [SerializeField] private int keySpawnCount = 3;
 
+    private int keySpawnCount;
     private KeyScript keyScript;
 
+    private void Awake () {
+        keySpawnCount = GameObject.FindObjectOfType<GameManager>().keyTarget;
+    }
     private void Start() {
         spawnKey();
     }
@@ -20,7 +23,6 @@ public class KeySpawner : MonoBehaviour {
             Transform spawnLoc = spawnPointsArray[Random.Range(0,spawnPointsArray.Length)];
 
             GameObject spawnedKey =  Instantiate(key, spawnLoc.position, spawnLoc.rotation);
-            print("Key Spawned");
 
             keyScript = spawnedKey.GetComponent<KeyScript>();
             keyScript.OnPickupKey += KeyScript_OnPickupKey;

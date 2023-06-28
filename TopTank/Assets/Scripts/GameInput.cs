@@ -13,7 +13,17 @@ public class GameInput : MonoBehaviour {
         playerControl = new Controls();
         playerControl.Player.Enable();
         playerControl.Player.Shoot.performed += Shoot_performed;
+
     }
+    private void Start() {
+        GameObject.FindAnyObjectByType<GameManager>().ToStopInput += GameInput_ToStopInput;
+    }
+
+    private void GameInput_ToStopInput(object sender, EventArgs e) {
+        playerControl.Player.Disable();
+        print("Input Stopped");
+    }
+
     public Vector2 GetMovementVectorNormalized() {
         Vector2 inputVector = playerControl.Player.Movement.ReadValue<Vector2>();
         if(inputVector == null ) {
@@ -33,4 +43,5 @@ public class GameInput : MonoBehaviour {
         mousePos.z = Camera.main.nearClipPlane;
         return Camera.main.ScreenToWorldPoint(mousePos);
     }
+
 }

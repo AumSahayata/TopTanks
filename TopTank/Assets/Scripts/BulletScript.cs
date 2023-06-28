@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour {
+public class BulletScript : MonoBehaviour {
 
     [SerializeField] private float bulletSpeed;
     [SerializeField] private GameObject destroyEffect;
     private void Update() {
-        //transform.position = Vector3.forward * Time.deltaTime;
         transform.Translate(Vector2.up * bulletSpeed * Time.deltaTime);
     }
 

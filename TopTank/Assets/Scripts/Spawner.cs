@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour {
 
-    [SerializeField] private GameObject spawnTank;
+    [SerializeField] private GameObject[] spawnTankArray;
     [SerializeField] private Transform[] spawnPointsArray;
     [SerializeField] private float minSpawnTime = 2f;
     [SerializeField] private float maxSpawnTime = 3f;
@@ -17,10 +17,10 @@ public class Spawner : MonoBehaviour {
         while (true) {
             yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
 
-            Transform spawnLoc = spawnPointsArray[Random.Range(0, spawnPointsArray.Length)];
+            Transform spawnLoc = spawnPointsArray[Random.Range(0,spawnPointsArray.Length)];
+            GameObject spawnTank = spawnTankArray[Random.Range(0,spawnTankArray.Length)];
 
             GameObject enemy = Instantiate(spawnTank,spawnLoc.position,transform.rotation);
-            enemy.GetComponent<ChasingTankScript>().SetMoveSpeed(Random.Range(3, 6));
         }
     }
 }
