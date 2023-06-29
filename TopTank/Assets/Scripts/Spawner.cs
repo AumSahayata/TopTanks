@@ -28,4 +28,15 @@ public class Spawner : MonoBehaviour {
             Destroy(animationSpawned);
         }
     }
+
+    public void SetNewMinMaxSpawnTime(float min,float max) {
+
+        StopCoroutine(spawn());
+
+        minSpawnTime = min;
+        maxSpawnTime = max;
+
+        StartCoroutine(spawn());
+        print("New Spawn time" + min + " " + max);
+    }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameInput : MonoBehaviour {
 
     public event EventHandler OnShoot;
+    public event EventHandler OnReload;
 
     private Controls playerControl;
     private bool pause = false;
@@ -15,7 +16,12 @@ public class GameInput : MonoBehaviour {
         playerControl.Player.Enable();
         playerControl.Player.Shoot.performed += Shoot_performed;
         playerControl.Player.Pause.performed += Pause_performed;
+        playerControl.Player.Reload.performed += Reload_performed;
 
+    }
+
+    private void Reload_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
+        OnReload?.Invoke(this, EventArgs.Empty);
     }
 
     private void Pause_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {

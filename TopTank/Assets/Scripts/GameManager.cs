@@ -11,8 +11,16 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject spawner;
     [SerializeField] private Text score;
+    [SerializeField] private int waitUntilDiffIncINSEC = 60;
+
+    [Header("New timing for spawner on diffculty increase")]
+    [Tooltip("New Minimum Spawn Time")]
+    [SerializeField] private float[] newMinTimeArray;
+    [Tooltip("New Maximum Spawn Time")]
+    [SerializeField] private float[] newMaxTimerArray;
 
     private int enemyKilled = 0;
+    private int minMaxArrayIndex = 0;
 
     // -----For Key mode-----
     //[SerializeField] private Text remainingKeyCountTXT;
@@ -22,6 +30,7 @@ public class GameManager : MonoBehaviour {
 
     private void Start() {
         score.text = enemyKilled.ToString();
+        StartCoroutine(DifficultyIncreased(newMinTimeArray[minMaxArrayIndex], newMaxTimerArray[minMaxArrayIndex]));
         //remainingKeyCountTXT.text = (keyTarget - keyCollected).ToString();
     }
 
@@ -34,6 +43,7 @@ public class GameManager : MonoBehaviour {
             }
 
             spawner.SetActive(false);
+            StopAllCoroutines();
         }
     }
 
@@ -50,5 +60,16 @@ public class GameManager : MonoBehaviour {
             enemyKilled += 2;
 
         score.text = enemyKilled.ToString();
+    }
+
+    IEnumerator DifficultyIncreased(float newMin,float newMax) {
+        yield return new WaitForSeconds(waitUntilDiffIncINSEC);
+
+        spawner.GetComponent<Spawner>().SetNewMinMaxSpawnTime(newMin,newMax);
+
+        if (minMaxArrayIndex < newMaxTimerArray.Length - 1)
+            minMaxArrayIndex++;
+
+        StartCoroutine(DifficultyIncreased(newMinTimeArray[minMaxArrayIndex], newMaxTimerArray[minMaxArrayIndex]));
     }
 }
