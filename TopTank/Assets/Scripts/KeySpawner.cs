@@ -10,9 +10,9 @@ public class KeySpawner : MonoBehaviour {
     private int keySpawnCount;
     private KeyScript keyScript;
 
-    private void Awake () {
-        keySpawnCount = GameObject.FindObjectOfType<GameManager>().keyTarget;
-    }
+    //private void Awake () {
+    //    keySpawnCount = GameObject.FindObjectOfType<GameManager>().keyTarget;
+    //}
     private void Start() {
         spawnKey();
     }

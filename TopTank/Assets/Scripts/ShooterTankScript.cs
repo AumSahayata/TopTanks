@@ -43,8 +43,11 @@ public class ShooterTankScript : MonoBehaviour {
             Destroy(gameObject);
             Destroy(collision.gameObject);
             Instantiate(tankDestroyEffect, transform.position, transform.rotation);
+
         } else if (collision.gameObject.CompareTag("Bullet")) {
             Destroy(gameObject);
+            GameObject.FindAnyObjectByType<GameManager>().ScoreIncrement("Shooter");
+
         }
     }
 

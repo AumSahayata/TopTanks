@@ -43,7 +43,8 @@ public class ChasingTankScript : MonoBehaviour {
         }
         else if (collision.gameObject.CompareTag("Bullet")) {
             Destroy(gameObject);
-        }
+            GameObject.FindAnyObjectByType<GameManager>().ScoreIncrement("Chaser");
+;        }
     }
 
     private void SetMoveSpeed() {

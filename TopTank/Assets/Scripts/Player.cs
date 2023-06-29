@@ -8,15 +8,12 @@ public class Player : MonoBehaviour {
     [SerializeField] private GameInput gameInput;
     [SerializeField] private Transform bulletSpawnPoint;
     [SerializeField] private GameObject bullet;
+    [SerializeField] private float shootDelayTime;
 
+    private bool loadedToShoot = true;
 
     private void Start () {
         gameInput.OnShoot += GameInput_OnShoot;
-    }
-
-
-    private void GameInput_OnShoot(object sender, System.EventArgs e) {
-        Shoot();
     }
 
     private void Update() {
@@ -34,12 +31,27 @@ public class Player : MonoBehaviour {
         }
     }
 
+    IEnumerator ShootDelay() {
+        if (!loadedToShoot) {
+            print("reloading");
+            yield return new WaitForSeconds(shootDelayTime);
+            loadedToShoot = true;
+            print("Ready to shoot");
+        }
+    }
+    private void GameInput_OnShoot(object sender, System.EventArgs e) {
+        Shoot();
+    }
+
     private void Shoot() {
         if(bulletSpawnPoint == null) {
             return;
         }
-
-        Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        if (loadedToShoot) {
+            Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+            loadedToShoot = false;
+            StartCoroutine(ShootDelay());
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {

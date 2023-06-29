@@ -10,17 +10,23 @@ public class GameManager : MonoBehaviour {
 
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject spawner;
-    [SerializeField] private Text remainingKeyCountTXT;
+    [SerializeField] private Text score;
 
-    public int keyTarget;
-    private int keyCollected;
+    private int enemyKilled = 0;
+
+    // -----For Key mode-----
+    //[SerializeField] private Text remainingKeyCountTXT;
+
+    //public int keyTarget;
+    //private int keyCollected;
 
     private void Start() {
-        remainingKeyCountTXT.text = (keyTarget - keyCollected).ToString();
+        score.text = enemyKilled.ToString();
+        //remainingKeyCountTXT.text = (keyTarget - keyCollected).ToString();
     }
 
     private void LateUpdate() {
-        if(GameObject.FindWithTag("Player") == null || keyCollected == keyTarget) {
+        if(GameObject.FindWithTag("Player") == null) {
             ToStopInput?.Invoke(this, EventArgs.Empty);
             
             if(player != null) {
@@ -31,9 +37,18 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void PickedUpKey() {
-        keyCollected++;
-        remainingKeyCountTXT.text = (keyTarget - keyCollected).ToString();
-    }
+    //-----For key mode-----
+    //public void PickedUpKey() {
+    //    keyCollected++;
+    //    remainingKeyCountTXT.text = (keyTarget - keyCollected).ToString();
+    //}
 
+    public void ScoreIncrement(string tankType) {
+        if (tankType == "Chaser")
+            enemyKilled++;
+        else if (tankType == "Shooter")
+            enemyKilled += 2;
+
+        score.text = enemyKilled.ToString();
+    }
 }
