@@ -6386,6 +6386,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 929157982}
     - target: {fileID: 2503312852901921266, guid: 9cd48faa3ad87d948ab0ad9d5c753ec7, type: 3}
+      propertyPath: shootDelayTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2503312852901921266, guid: 9cd48faa3ad87d948ab0ad9d5c753ec7, type: 3}
       propertyPath: bulletSpawnPoint
       value: 
       objectReference: {fileID: 691031813}
