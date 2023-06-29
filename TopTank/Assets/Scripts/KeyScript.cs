@@ -12,7 +12,7 @@ public class KeyScript : MonoBehaviour {
         if (collision.gameObject.CompareTag("Player")) {
             Destroy(gameObject);
             OnPickupKey?.Invoke(this, EventArgs.Empty);
-            GameObject.FindAnyObjectByType<GameManager>().PickedUpKey();
+            //GameObject.FindAnyObjectByType<GameManager>().PickedUpKey();
         }
     }
 }
