@@ -25,12 +25,6 @@ public class GameManager : MonoBehaviour {
     private int scoreCounter = 0;
     private int minMaxArrayIndex = 0;
 
-    // -----For Key mode-----
-    //[SerializeField] private Text remainingKeyCountTXT;
-
-    //public int keyTarget;
-    //private int keyCollected;
-
     private void Start() {
 
         playingCanvas.SetActive(true);
@@ -39,7 +33,6 @@ public class GameManager : MonoBehaviour {
         scoreArray[0].text = scoreCounter.ToString();
         scoreArray[1].text = scoreCounter.ToString();
         StartCoroutine(DifficultyIncreased(newMinTimeArray[minMaxArrayIndex], newMaxTimerArray[minMaxArrayIndex]));
-        //remainingKeyCountTXT.text = (keyTarget - keyCollected).ToString();
     }
 
     private void LateUpdate() {
@@ -57,12 +50,6 @@ public class GameManager : MonoBehaviour {
             gameoverCanvas.SetActive(true);
         }
     }
-
-    //-----For key mode-----
-    //public void PickedUpKey() {
-    //    keyCollected++;
-    //    remainingKeyCountTXT.text = (keyTarget - keyCollected).ToString();
-    //}
 
     public void ScoreIncrement(string tankType) {
         if (tankType == "Chaser")
