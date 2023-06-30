@@ -15,6 +15,7 @@ public class Player : MonoBehaviour {
 
     private void Awake() {
         remainingBullet = bulletAmount;
+        
     }
 
     private void Start () {

@@ -11,7 +11,7 @@ public class GameoverScript : MonoBehaviour {
     }
 
     public void MapSelection() {
-
+        SceneManager.LoadScene("MapSelection");
     }
 
     public void Exit() { 

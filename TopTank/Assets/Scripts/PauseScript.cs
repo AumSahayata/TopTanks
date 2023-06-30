@@ -23,5 +23,7 @@ public class PauseScript : MonoBehaviour {
 
     public void MainMenu() {
         SceneManager.LoadScene("MainMenu");
+        gameInput.pause = false;
+        gameInput.Pause();
     }
 }

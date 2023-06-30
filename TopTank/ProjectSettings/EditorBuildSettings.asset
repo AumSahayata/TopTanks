@@ -6,6 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/TestLevel.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/MainMenu.unity
+    guid: e4b34a28ec6efbd4b8276a6a35e149d6
+  - enabled: 1
+    path: Assets/Scenes/MapSelection.unity
+    guid: a6ba8921a32d5a1479a51ed89607129c
+  - enabled: 1
+    path: Assets/Scenes/RocksideRuins.unity
+    guid: 7df94bfa69e1c11499c9b0b42e68b04c
+  - enabled: 1
+    path: Assets/Scenes/Greenwoods.unity
+    guid: 8c64e9dad239a0845a9ca9b3f891e000
+  - enabled: 1
+    path: Assets/Scenes/MegaCity.unity
+    guid: 97f1528b7102af14db644fb04ecb349c
   m_configObjects: {}
