@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,12 +7,23 @@ public class Player : MonoBehaviour {
     [SerializeField] private GameInput gameInput;
     [SerializeField] private Transform bulletSpawnPoint;
     [SerializeField] private GameObject bullet;
-    [SerializeField] private float shootDelayTime;
+    [SerializeField] private float reloadTime = 2;
+    [SerializeField] private int bulletAmount = 3;
 
     private bool loadedToShoot = true;
+    private int remainingBullet;
+
+    private void Awake() {
+        remainingBullet = bulletAmount;
+    }
 
     private void Start () {
         gameInput.OnShoot += GameInput_OnShoot;
+        gameInput.OnReload += GameInput_OnReload;
+    }
+
+    private void GameInput_OnReload(object sender, System.EventArgs e) {
+        StartCoroutine(Reload());
     }
 
     private void Update() {
@@ -31,13 +41,16 @@ public class Player : MonoBehaviour {
         }
     }
 
-    IEnumerator ShootDelay() {
-        if (!loadedToShoot) {
-            print("reloading");
-            yield return new WaitForSeconds(shootDelayTime);
-            loadedToShoot = true;
-            print("Ready to shoot");
-        }
+    IEnumerator Reload() {
+        loadedToShoot = false;
+        remainingBullet = 0;
+
+        print("reloading");
+        yield return new WaitForSeconds(reloadTime);
+        remainingBullet = bulletAmount;
+        loadedToShoot = true;
+        print("Ready to shoot");
+    
     }
     private void GameInput_OnShoot(object sender, System.EventArgs e) {
         Shoot();
@@ -49,8 +62,10 @@ public class Player : MonoBehaviour {
         }
         if (loadedToShoot) {
             Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-            loadedToShoot = false;
-            StartCoroutine(ShootDelay());
+            remainingBullet--;
+            if(remainingBullet == 0) {
+                StartCoroutine(Reload());
+            }
         }
     }
 
@@ -61,5 +76,7 @@ public class Player : MonoBehaviour {
         }
     }
 
-
+    public int GetRemainingBullet() {
+        return remainingBullet;
+    }
 }

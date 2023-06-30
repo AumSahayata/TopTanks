@@ -6,28 +6,31 @@ using UnityEngine;
 public class GameInput : MonoBehaviour {
 
     public event EventHandler OnShoot;
+    public event EventHandler OnReload;
+
+    [SerializeField] private GameObject pausePanel;
 
     private Controls playerControl;
-    private bool pause = false;
+    [HideInInspector] public bool pause = false;
 
     private void Awake() {
         playerControl = new Controls();
         playerControl.Player.Enable();
         playerControl.Player.Shoot.performed += Shoot_performed;
         playerControl.Player.Pause.performed += Pause_performed;
+        playerControl.Player.Reload.performed += Reload_performed;
 
+        
+    }
+
+    private void Reload_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
+        OnReload?.Invoke(this, EventArgs.Empty);
     }
 
     private void Pause_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj) {
         pause = !pause;
 
-        if (pause) {
-            Time.timeScale = 0;
-            playerControl.Player.Shoot.performed -= Shoot_performed;
-        } else {
-            Time.timeScale = 1;
-            playerControl.Player.Shoot.performed += Shoot_performed;
-        }
+        Pause();
 
         print("pause " + Time.timeScale);
     }
@@ -38,7 +41,6 @@ public class GameInput : MonoBehaviour {
 
     private void GameInput_ToStopInput(object sender, EventArgs e) {
         playerControl.Player.Disable();
-        print("Input Stopped");
     }
 
     public Vector2 GetMovementVectorNormalized() {
@@ -59,6 +61,27 @@ public class GameInput : MonoBehaviour {
         Vector3 mousePos = playerControl.Player.Aim.ReadValue<Vector2>();
         mousePos.z = Camera.main.nearClipPlane;
         return Camera.main.ScreenToWorldPoint(mousePos);
+    }
+
+    public void Pause() {
+        if (pause) {
+            Time.timeScale = 0;
+            playerControl.Player.Shoot.performed -= Shoot_performed;
+
+            if (pausePanel == null)
+                return;
+
+            pausePanel.SetActive(true);
+
+        } else {
+            Time.timeScale = 1;
+            playerControl.Player.Shoot.performed += Shoot_performed;
+
+            if (pausePanel == null)
+                return;
+
+            pausePanel.SetActive(false);
+        }
     }
 
 }

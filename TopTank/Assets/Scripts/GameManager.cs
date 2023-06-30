@@ -10,9 +10,20 @@ public class GameManager : MonoBehaviour {
 
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject spawner;
-    [SerializeField] private Text score;
+    [SerializeField] private GameObject playingCanvas;
+    [SerializeField] private GameObject gameoverCanvas;
+    [SerializeField] private Text[] scoreArray;
+    [SerializeField] private Text highscore;
+    [SerializeField] private int waitUntilDiffIncINSEC = 60;
 
-    private int enemyKilled = 0;
+    [Header("New timing for spawner on diffculty increase")]
+    [Tooltip("New Minimum Spawn Time")]
+    [SerializeField] private float[] newMinTimeArray;
+    [Tooltip("New Maximum Spawn Time")]
+    [SerializeField] private float[] newMaxTimerArray;
+
+    private int scoreCounter = 0;
+    private int minMaxArrayIndex = 0;
 
     // -----For Key mode-----
     //[SerializeField] private Text remainingKeyCountTXT;
@@ -21,7 +32,13 @@ public class GameManager : MonoBehaviour {
     //private int keyCollected;
 
     private void Start() {
-        score.text = enemyKilled.ToString();
+
+        playingCanvas.SetActive(true);
+        gameoverCanvas.SetActive(false);
+
+        scoreArray[0].text = scoreCounter.ToString();
+        scoreArray[1].text = scoreCounter.ToString();
+        StartCoroutine(DifficultyIncreased(newMinTimeArray[minMaxArrayIndex], newMaxTimerArray[minMaxArrayIndex]));
         //remainingKeyCountTXT.text = (keyTarget - keyCollected).ToString();
     }
 
@@ -34,6 +51,10 @@ public class GameManager : MonoBehaviour {
             }
 
             spawner.SetActive(false);
+            highscore.text = PlayerPrefs.GetInt("highscore", 0).ToString();
+            StopAllCoroutines();
+            playingCanvas.SetActive(false);
+            gameoverCanvas.SetActive(true);
         }
     }
 
@@ -45,10 +66,27 @@ public class GameManager : MonoBehaviour {
 
     public void ScoreIncrement(string tankType) {
         if (tankType == "Chaser")
-            enemyKilled++;
+            scoreCounter++;
         else if (tankType == "Shooter")
-            enemyKilled += 2;
+            scoreCounter += 2;
 
-        score.text = enemyKilled.ToString();
+        scoreArray[0].text = scoreCounter.ToString();
+        scoreArray[1].text = scoreCounter.ToString();
+
+        if(scoreCounter > PlayerPrefs.GetInt("highscore",0)) {
+            PlayerPrefs.SetInt("highscore", scoreCounter);
+            PlayerPrefs.Save();
+        }
+    }
+
+    IEnumerator DifficultyIncreased(float newMin,float newMax) {
+        yield return new WaitForSeconds(waitUntilDiffIncINSEC);
+
+        spawner.GetComponent<Spawner>().SetNewMinMaxSpawnTime(newMin,newMax);
+
+        if (minMaxArrayIndex < newMaxTimerArray.Length - 1)
+            minMaxArrayIndex++;
+
+        StartCoroutine(DifficultyIncreased(newMinTimeArray[minMaxArrayIndex], newMaxTimerArray[minMaxArrayIndex]));
     }
 }
