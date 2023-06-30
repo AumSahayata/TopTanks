@@ -236,7 +236,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameInput: {fileID: 0}
   bulletSpawnPoint: {fileID: 4672619037412000010}
-  bullet: {fileID: 0}
+  bullet: {fileID: 3332455935696886775, guid: 781510c431fec3a4db365baf00048d90, type: 3}
+  reloadTime: 2
+  bulletAmount: 3
 --- !u!1 &7111488633289653656
 GameObject:
   m_ObjectHideFlags: 0
