@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour {
 
     private int scoreCounter = 0;
     private int minMaxArrayIndex = 0;
+    private GameObject messagePanel;
 
     private void Start() {
 
@@ -66,6 +67,13 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    IEnumerator DifficultyMessage() {
+        messagePanel = playingCanvas.transform.Find("MessagePanel").gameObject;
+        messagePanel.SetActive(true);
+
+        yield return new WaitForSeconds(2);
+        messagePanel.SetActive(false);
+    }
     IEnumerator DifficultyIncreased(float newMin,float newMax) {
         yield return new WaitForSeconds(waitUntilDiffIncINSEC);
 
@@ -75,5 +83,6 @@ public class GameManager : MonoBehaviour {
             minMaxArrayIndex++;
 
         StartCoroutine(DifficultyIncreased(newMinTimeArray[minMaxArrayIndex], newMaxTimerArray[minMaxArrayIndex]));
+        StartCoroutine(DifficultyMessage());
     }
 }

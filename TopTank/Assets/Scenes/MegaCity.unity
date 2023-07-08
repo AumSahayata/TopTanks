@@ -70363,6 +70363,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 80951234}
     - target: {fileID: 445797833374276266, guid: ed8f09e13d26ad84097890022a8d9654, type: 3}
+      propertyPath: waitUntilDiffIncINSEC
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 445797833374276266, guid: ed8f09e13d26ad84097890022a8d9654, type: 3}
       propertyPath: newMinTimeArray.Array.size
       value: 3
       objectReference: {fileID: 0}
