@@ -37,6 +37,5 @@ public class Spawner : MonoBehaviour {
         maxSpawnTime = max;
 
         StartCoroutine(spawn());
-        print("New Spawn time" + min + " " + max);
     }
 }

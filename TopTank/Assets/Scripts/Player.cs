@@ -46,11 +46,9 @@ public class Player : MonoBehaviour {
         loadedToShoot = false;
         remainingBullet = 0;
 
-        print("reloading");
         yield return new WaitForSeconds(reloadTime);
         remainingBullet = bulletAmount;
         loadedToShoot = true;
-        print("Ready to shoot");
     
     }
     private void GameInput_OnShoot(object sender, System.EventArgs e) {

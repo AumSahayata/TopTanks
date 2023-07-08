@@ -32,7 +32,6 @@ public class GameInput : MonoBehaviour {
 
         Pause();
 
-        print("pause " + Time.timeScale);
     }
 
     private void Start() {
